@@ -54,7 +54,16 @@ public class TaskService {
         }
     }
 
-    //////////////////////////// delete task /////////////////////////////
-
+    /////////////////////////////////// <<delete task>> /////////////////////////////////////////
+    public Task deleteTaskById(Long id) {
+        Optional<Task> task = taskRepository.findById(id);
+        if (task.isPresent()) {
+            taskRepository.deleteById(id);
+        }
+        else{
+            System.out.println("Invalid Id given");
+        }
+        return null;
+    }
 
 }
