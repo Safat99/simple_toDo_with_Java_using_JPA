@@ -11,6 +11,9 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
     @Query(value = "select * FROM task_table where taskName=:n",nativeQuery = true)
     Task getTaskByCustom(@Param("n") String name);
 
+    @Query(value = "select * from task_table where id=?1", nativeQuery = true)
+    Task getTaskByIdCustom(Long id);
+
     @Modifying
     @Transactional // database er sathe connection related jinish pati handle kore
     // half way te kono jhamela na hoy seta ensure korbe..
@@ -21,6 +24,22 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
                           String progress,
                           String startDate
                           );
+
+    @Modifying
+    @Transactional
+    @Query(value = "update task_table set timeNeeded=?1, shift=?2, progress=?3 where id=?4", nativeQuery = true)
+    int updateTaskCustom(
+            int timeNeeded,
+            String shift,
+            String progress,
+            Long id
+            );
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from task_table where id=?1", nativeQuery = true)
+    void deleteTaskByIdCustom(Long id);
+
 
 
 

@@ -38,6 +38,11 @@ public class TaskController {
         return new ResponseEntity<Task>(taskService.getTaskByName(taskName),HttpStatus.OK);
     }
 
+    @GetMapping("/getTask/{id}")
+    public ResponseEntity<Task> getTaskByName(@PathVariable("id") Long id) {
+        return new ResponseEntity<Task>(taskService.getTaskByIdCustom(id),HttpStatus.OK);
+    }
+
 
     ////////////////////////////// update operation ////////////////////////////////////////
     @PutMapping("/updateTask/{id}")
@@ -45,10 +50,22 @@ public class TaskController {
         return new ResponseEntity<Task>(taskService.updateTaskById(id,task),HttpStatus.OK);
     }
 
+    @PutMapping("/updateCustomTask/{id}")
+    ResponseEntity<Integer> updateTaskCustom(@PathVariable("id") Long id, @RequestBody Task task){
+        return new ResponseEntity<Integer>(taskService.updateTaskCustom(id,task),HttpStatus.OK);
+    }
+
     //////////////////////////////// delete operation /////////////////////////////////////////
     @DeleteMapping("/deleteTask/{id}")
     ResponseEntity<Task> deleteTask(@PathVariable("id") Long id){
         return new ResponseEntity<Task>(taskService.deleteTaskById(id), HttpStatus.OK);
     }
+
+    @DeleteMapping("/deleteTaskCustom/{id}")
+    ResponseEntity<?> deleteTaskCustom(@PathVariable("id") Long id){
+        taskService.deleteTaskByIdCustom(id);
+        return ResponseEntity.ok().build();
+    }
+
 
 }
