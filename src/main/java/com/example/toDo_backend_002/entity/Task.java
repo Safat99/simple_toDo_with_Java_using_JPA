@@ -23,14 +23,6 @@ public class Task {
     @Column(name = "startDate")
     private String startDate;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public int getTimeNeeded() {
         return timeNeeded;
     }

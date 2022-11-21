@@ -19,6 +19,18 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    public void addTaskCustom(Task task){
+         taskRepository.insertTaskCustom(
+                task.getTimeNeeded(),
+                task.getTaskName(),
+                task.getShift(),
+                task.getProgress(),
+                task.getStartDate()
+                );
+
+    }
+
+
     //////////////////////////////// read task ///////////////////////////////////////
     public Task getTaskById(Long id){
         try{
@@ -53,6 +65,8 @@ public class TaskService {
             return null;
         }
     }
+
+
 
     /////////////////////////////////// <<delete task>> /////////////////////////////////////////
     public Task deleteTaskById(Long id) {

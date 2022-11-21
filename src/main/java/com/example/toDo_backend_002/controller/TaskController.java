@@ -2,6 +2,7 @@ package com.example.toDo_backend_002.controller;
 
 import com.example.toDo_backend_002.entity.Task;
 import com.example.toDo_backend_002.service.TaskService;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,12 @@ public class TaskController {
     @PostMapping("/saveTask")
     ResponseEntity<Task> addTask(@RequestBody Task task){
         return new ResponseEntity<Task>(taskService.addTask(task), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/saveTaskCustomQuery")
+    ResponseEntity<?> addTaskCustom(@RequestBody Task task){
+        taskService.addTaskCustom(task);
+        return ResponseEntity.ok().build();
     }
 
     /////////////////////////////////////// read operation ///////////////////////////////////
