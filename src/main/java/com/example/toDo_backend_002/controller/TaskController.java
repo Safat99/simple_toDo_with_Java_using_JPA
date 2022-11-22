@@ -27,6 +27,12 @@ public class TaskController {
         return ResponseEntity.ok().build();
     }
 
+//    @PostMapping("/insertTaskJPQL")
+//    ResponseEntity<?> insertTaskJPQL(@RequestBody Task task){
+//        taskService.insertTaskJPQL(task);
+//        return ResponseEntity.ok().build();
+//    }
+
     /////////////////////////////////////// read operation ///////////////////////////////////
     @GetMapping("/readTask/{id}")
     ResponseEntity<Task> getTask(@PathVariable("id") Long id){
@@ -43,6 +49,10 @@ public class TaskController {
         return new ResponseEntity<Task>(taskService.getTaskByIdCustom(id),HttpStatus.OK);
     }
 
+    @GetMapping("/getTaskByJPQL/{name}")// must be a unique name
+    public ResponseEntity<Task> getTaskByJPQL(@PathVariable("name") String name){
+        return new ResponseEntity<Task>(taskService.getTaskByJPQL(name), HttpStatus.OK);
+    }
 
     ////////////////////////////// update operation ////////////////////////////////////////
     @PutMapping("/updateTask/{id}")
@@ -55,6 +65,10 @@ public class TaskController {
         return new ResponseEntity<Integer>(taskService.updateTaskCustom(id,task),HttpStatus.OK);
     }
 
+    @PutMapping("/updateCustomTaskJPQL/{id}")
+    ResponseEntity<Integer> updateTaskCustomJPQL(@PathVariable("id") Long id, @RequestBody Task task){
+        return new ResponseEntity<Integer>(taskService.updateTaskCustomJPQL(id,task),HttpStatus.OK);
+    }
     //////////////////////////////// delete operation /////////////////////////////////////////
     @DeleteMapping("/deleteTask/{id}")
     ResponseEntity<Task> deleteTask(@PathVariable("id") Long id){
@@ -64,6 +78,12 @@ public class TaskController {
     @DeleteMapping("/deleteTaskCustom/{id}")
     ResponseEntity<?> deleteTaskCustom(@PathVariable("id") Long id){
         taskService.deleteTaskByIdCustom(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/deleteJPQL/{id}")
+    ResponseEntity<?> deleteTaskCustomJPQL(@PathVariable("id") Long id){
+        taskService.deleteTaskCustomJPQL(id);
         return ResponseEntity.ok().build();
     }
 

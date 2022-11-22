@@ -29,6 +29,17 @@ public class TaskService {
                 );
     }
 
+//    public void insertTaskJPQL(Task task){
+//        taskRepository.insertTaskJPQL(
+//                        task.getTimeNeeded(),
+//                        task.getTaskName(),
+//                        task.getShift(),
+//                        task.getProgress(),
+//                        task.getStartDate()
+//                        );
+//    }
+
+
 
     //////////////////////////////// read task ///////////////////////////////////////
     public Task getTaskById(Long id){
@@ -49,6 +60,10 @@ public class TaskService {
 
     public Task getTaskByIdCustom(Long id){
         return taskRepository.getTaskByIdCustom(id);
+    }
+
+    public Task getTaskByJPQL(String name){
+        return taskRepository.getTaskByJPQL(name);
     }
 
     ////////////////////////////// update task ////////////////////////////////////////
@@ -81,6 +96,19 @@ public class TaskService {
         return result;
     }
 
+    public int updateTaskCustomJPQL(Long id, Task givenTask){
+        Task task = taskRepository.getTaskByIdCustom(id);
+        int result;
+        if (task != null){
+            result = taskRepository.updateTaskCustomJPQL(givenTask.getTimeNeeded(),givenTask.getShift(),givenTask.getProgress(),id);
+        }
+        else{
+            result = -1;
+            System.out.println("Invalid Id given");
+        }
+        return result;
+    }
+
 
 
     /////////////////////////////////// <<delete task>> /////////////////////////////////////////
@@ -99,6 +127,13 @@ public class TaskService {
         Task task = taskRepository.getTaskByIdCustom(id);
         if (task != null){
             taskRepository.deleteTaskByIdCustom(id);
+        }
+    }
+
+    public void deleteTaskCustomJPQL(Long id){
+        Task task = taskRepository.getTaskByIdCustom(id);
+        if (task != null){
+            taskRepository.deleteTaskByIdCustomJPQL(id);
         }
     }
 

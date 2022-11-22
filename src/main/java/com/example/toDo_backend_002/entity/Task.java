@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "task_table")
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // why Long or long is used >> still unclear... why not integer.
@@ -23,6 +24,9 @@ public class Task {
     @Column(name = "startDate")
     private String startDate;
 
+    public Long getId() {
+        return id;
+    }
     public int getTimeNeeded() {
         return timeNeeded;
     }
