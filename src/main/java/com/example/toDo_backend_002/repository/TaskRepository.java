@@ -1,11 +1,15 @@
 package com.example.toDo_backend_002.repository;
 
 import com.example.toDo_backend_002.entity.Task;
+import com.example.toDo_backend_002.projection.TaskProjection;
+import com.example.toDo_backend_002.projection.TaskProjectionInterface;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
@@ -13,8 +17,8 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
     @Query(value = "select * FROM task_table where taskName=:n",nativeQuery = true)
     Task getTaskByCustom(@Param("n") String name);
 
-    @Query(value = "select t FROM Task t where taskName=:name")
-    Task getTaskByJPQL(@Param("name") String name);
+    @Query("select t.shift as shift, t.timeNeeded as timeNeeded FROM Task t")
+    List<TaskProjectionInterface> getTaskByJPQL(@Param("name") String name);
 
     @Query(value = "select * from task_table where id=?1", nativeQuery = true)
     Task getTaskByIdCustom(Long id);
@@ -30,17 +34,6 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
                           String progress,
                           String startDate
     );
-
-//    @Modifying
-//    @Transactional
-//    @Query("insert into Task (timeNeeded, taskName, shift, progress, startDate) values (?1, ?2, ?3, ?4, ?5)")
-//    void insertTaskJPQL(
-//            int timeNeeded,
-//            String taskName,
-//            String shift,
-//            String progress,
-//            String startDate
-//    );
 
     //////////////////////////////////// update  /////////////////////////////////////////////
     @Modifying

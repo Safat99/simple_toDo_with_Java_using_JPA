@@ -1,11 +1,15 @@
 package com.example.toDo_backend_002.controller;
 
 import com.example.toDo_backend_002.entity.Task;
+import com.example.toDo_backend_002.projection.TaskProjection;
+import com.example.toDo_backend_002.projection.TaskProjectionInterface;
 import com.example.toDo_backend_002.service.TaskService;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class TaskController {
@@ -27,11 +31,6 @@ public class TaskController {
         return ResponseEntity.ok().build();
     }
 
-//    @PostMapping("/insertTaskJPQL")
-//    ResponseEntity<?> insertTaskJPQL(@RequestBody Task task){
-//        taskService.insertTaskJPQL(task);
-//        return ResponseEntity.ok().build();
-//    }
 
     /////////////////////////////////////// read operation ///////////////////////////////////
     @GetMapping("/readTask/{id}")
@@ -50,8 +49,8 @@ public class TaskController {
     }
 
     @GetMapping("/getTaskByJPQL/{name}")// must be a unique name
-    public ResponseEntity<Task> getTaskByJPQL(@PathVariable("name") String name){
-        return new ResponseEntity<Task>(taskService.getTaskByJPQL(name), HttpStatus.OK);
+    public ResponseEntity<List<TaskProjectionInterface>> getTaskByJPQL(@PathVariable("name") String name){
+        return new ResponseEntity<List<TaskProjectionInterface>>(taskService.getTaskByJPQL(name), HttpStatus.OK);
     }
 
     ////////////////////////////// update operation ////////////////////////////////////////

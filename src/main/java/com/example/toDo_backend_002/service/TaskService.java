@@ -1,8 +1,11 @@
 package com.example.toDo_backend_002.service;
+import com.example.toDo_backend_002.projection.TaskProjection;
+import com.example.toDo_backend_002.projection.TaskProjectionInterface;
 import com.example.toDo_backend_002.repository.TaskRepository;
 import com.example.toDo_backend_002.entity.Task;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,18 +32,6 @@ public class TaskService {
                 );
     }
 
-//    public void insertTaskJPQL(Task task){
-//        taskRepository.insertTaskJPQL(
-//                        task.getTimeNeeded(),
-//                        task.getTaskName(),
-//                        task.getShift(),
-//                        task.getProgress(),
-//                        task.getStartDate()
-//                        );
-//    }
-
-
-
     //////////////////////////////// read task ///////////////////////////////////////
     public Task getTaskById(Long id){
         try{
@@ -62,7 +53,7 @@ public class TaskService {
         return taskRepository.getTaskByIdCustom(id);
     }
 
-    public Task getTaskByJPQL(String name){
+    public List<TaskProjectionInterface> getTaskByJPQL(String name){
         return taskRepository.getTaskByJPQL(name);
     }
 
